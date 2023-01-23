@@ -12,32 +12,41 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class TaskService {
-  private apiUrl = 'https://api-task-manager-o0lr.onrender.com/api/tasks'
+  private apiUrl = 'http://localhost:5000/tasks'
   constructor(private http: HttpClient) {
 
    }
 
   getTasks(): Observable<Task[]> {
-    const url = `${this.apiUrl}/getAllTasks`;
-    return this.http.get<Task[]>(url);
+    // const url = `${this.apiUrl}/getAllTasks`; production logic
+    // return this.http.get<Task[]>(url);
+    return this.http.get<Task[]>(this.apiUrl);
   }
   
   deleteTask(task: Task): Observable<Task>{
-    console.log(task);
-    
-    const url = `${this.apiUrl}/deleteTask/${task.id}`;
+    //production logic
+    // const url = `${this.apiUrl}/deleteTask/${task.id}`;
+    // return this.http.delete<Task>(url);
+
+    const url = `${this.apiUrl}/${task.id}`;
     return this.http.delete<Task>(url);
   }
   
   updateTaskReminder(task: Task): Observable<Task>{
-    const url = `${this.apiUrl}/updateTask/${task.id}`;
+    //production logic
+    // const url = `${this.apiUrl}/updateTask/${task.id}`;
+    // return this.http.put<Task>(url, task, httpOptions);
+
+    const url = `${this.apiUrl}/${task.id}`;
     return this.http.put<Task>(url, task, httpOptions);
   }
   
   addTask(task: Task): Observable<Task>{
+    //production logic
+    // const url = `${this.apiUrl}/createTask`;
+    // return this.http.post<Task>(url, task, httpOptions);
     
-    const url = `${this.apiUrl}/createTask`;
-    return this.http.post<Task>(url, task, httpOptions);
+    return this.http.post<Task>(this.apiUrl, task, httpOptions);
   }
 
 }
